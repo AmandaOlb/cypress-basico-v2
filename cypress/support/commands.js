@@ -1,0 +1,12 @@
+Cypress.Commands.add('fillMandatoryFieldsAndSubmit', project => {
+    cy.get('#firstName').should('be.visible').type('Amanda')
+    cy.get('#lastName').should('be.visible').type('Rocha')
+    cy.get('#email').should('be.visible').type('amanda@123.com')
+    cy.get('#phone').type('aaaaa')
+    cy.get('#phone').should('be.empty')
+    cy.get('#product').select('cursos')
+    cy.get('#open-text-area').type("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin laoreet auctor semper. Praesent eros neque, bibendum et eros quis, euismod varius nunc. In rhoncus rutrum lacus eget hendrerit. Suspendisse consectetur cursus leo nec luctus. Morbi quis quam eget lorem faucibus auctor sed et lectus. Cras nec nulla non arcu finibus porta vel a lorem. Phasellus.", {delay : 0})
+    ///.get('.button').click()
+    cy.contains('button', 'Enviar').click()
+    cy.get('.success').should('be.visible')
+  })
