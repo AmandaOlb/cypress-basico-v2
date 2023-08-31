@@ -67,8 +67,47 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
 
     /// Exercício extra 07
-    it.only('envia o formuário com sucesso usando um comando customizado', function(){
+    it('envia o formuário com sucesso usando um comando customizado', function(){
         cy.fillMandatoryFieldsAndSubmit();
     })
-})
 
+    //Aula 03 - Exercício 01
+    it('seleciona um produto (YouTube) por seu texto', function(){
+        cy.get('#product').select('YouTube').should('have.value', 'youtube')
+    })
+
+    it('seleciona um produto (Mentoria) por seu valor', function(){
+        cy.get('#product').select('mentoria').should('have.value', 'mentoria')
+    })
+
+    it('seleciona um produto (Blog) por seu índice', function(){
+        cy.get('#product').select(1).should('have.value', 'blog')
+    })
+
+    //Aula 04
+    it('marca o tipo de atendimento "Feedback"',function(){
+        cy.get('[type="radio"]').check('feedback').should('have.value', 'feedback')
+    })
+    
+    it('marca cada tipo de atendimento', function(){
+        
+        /* cy.get('[type="radio"]').check('ajuda').should('be.checked')
+        cy.get('[type="radio"]').check('elogio').should('be.checked')
+        cy.get('[type="radio"]').check('feedback').should('be.checked')
+ */
+        cy.get('[type="radio"]')
+        .should('have.length', 3)
+        .each(function($radio){
+            cy.wrap($radio).check()
+            cy.wrap($radio).should('be.checked')
+        })
+    })
+
+    //Aula 05
+    it('marca ambos checkboxes, depois desmarca o último', function(){
+        cy.get('[type="checkbox"]').as('checkboxes').check()
+       /// cy.get('[type="checkboxes"]').last().uncheck()
+    })
+
+
+})
