@@ -103,10 +103,32 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         })
     })
 
-    //Aula 05
+    //Aula 05: Checkboxes
     it('marca ambos checkboxes, depois desmarca o último', function(){
-        cy.get('[type="checkbox"]').as('checkboxes').check()
-       /// cy.get('[type="checkboxes"]').last().uncheck()
+        cy.get('input[type="checkbox"]').as('checkboxes').check()
+        .last().uncheck()
+    })
+    //Aula 06: Upload de arquivos
+    it('seleciona um arquivo da pasta fixtures', function(){
+        cy.get('input[type="file"]').selectFile('cypress/fixtures/example.json')
+        .then(input => {
+            expect(input[0].files[0].name).to.equal('example.json')
+        })
+    })
+
+    it('seleciona um arquivo simulando um drag-and-drop', function(){
+        cy.get('input[type="file"]').selectFile('cypress/fixtures/example.json', {action : 'drag-drop'})
+        .then(input => {
+            expect(input[0].files[0].name).to.equal('example.json')
+        })
+    })
+
+    it.only('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', function(){
+        cy.fixture('example.json', {enconding : null}).as('exampleFile')
+        cy.get('input[type="file"]').selectFile('@exampleFile')
+        .then(input => {
+            expect(input[0].files[0].name).to.equal('example.json')
+        })
     })
 
 
